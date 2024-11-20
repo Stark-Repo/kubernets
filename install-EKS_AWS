@@ -1,0 +1,29 @@
+# Create EC2 instance
+# Update AWS-CLI to latest
+# Create IAM user with required privilages and generate key
+# Configure the CLI with those keys
+AWS configure
+
+#install kubectl on AWS
+sudo yum update -y
+sudo yum install -y kubectl
+kubectl version --client
+Client Version: v1.x.x
+curl -LO "https://dl.k8s.io/release/v1.27.0/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+kubectl version --client
+aws eks --region <region> update-kubeconfig --name <cluster_name>
+
+#install eksctl on AWS
+sudo yum update -y
+sudo yum install -y wget unzip
+wget https://github.com/weaveworks/eksctl/releases/download/v0.158.0/eksctl_Linux_amd64.tar.gz
+tar -xvzf eksctl_Linux_amd64.tar.gz
+sudo mv eksctl /usr/local/bin/
+eksctl version
+0.158.0
+rm eksctl_Linux_amd64.tar.gz
+aws configure
+eksctl create cluster --name my-cluster --region us-west-2
+
